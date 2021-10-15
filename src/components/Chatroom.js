@@ -30,13 +30,16 @@ const Chatroom = ({ auth, firestore }) => {
   const handleSendMessage = async e => {
     e.preventDefault();
     const { uid, photoURL } = auth.currentUser;
+    const isEmptyMessage = !formValue.trim();
 
-    await addDoc(messagesRef, {
-      text: formValue,
-      createdAt: Timestamp.now(),
-      uid,
-      photoURL,
-    });
+    if (!isEmptyMessage) {
+      await addDoc(messagesRef, {
+        text: formValue,
+        createdAt: Timestamp.now(),
+        uid,
+        photoURL,
+      });
+    }
 
     setFormValue("");
     bottom.current.scrollIntoView({ behavior: "smooth" });
