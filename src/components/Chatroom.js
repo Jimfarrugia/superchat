@@ -27,8 +27,6 @@ const Chatroom = ({ auth, firestore }) => {
     return () => unsubscribe();
   }, []); // eslint-disable-line
 
-  useEffect(() => console.log(messages), [messages]); //* debugging
-
   const handleSendMessage = async e => {
     e.preventDefault();
     const { uid, photoURL } = auth.currentUser;
@@ -51,10 +49,9 @@ const Chatroom = ({ auth, firestore }) => {
       </header>
       <main className="messages">
         {messages &&
-          messages.map(msg => {
-            console.log(msg);
-            return <ChatMessage key={msg.id} message={msg} auth={auth} />;
-          })}
+          messages.map(msg => (
+            <ChatMessage key={msg.id} message={msg} auth={auth} />
+          ))}
         <div ref={bottom} />
       </main>
       <form onSubmit={handleSendMessage}>
