@@ -34,7 +34,7 @@ const Chatroom = ({ auth, firestore }) => {
         {messages &&
           messages.map(msg => {
             console.log(msg);
-            return <ChatMessage key={msg.id} message={msg} />;
+            return <ChatMessage key={msg.id} message={msg} auth={auth} />;
           })}
       </div>
     </>
