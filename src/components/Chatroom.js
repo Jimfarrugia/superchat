@@ -47,13 +47,13 @@ const Chatroom = ({ auth, firestore }) => {
       <header>
         <SignOut auth={auth} />
       </header>
-      <div className="messages">
+      <main className="messages">
         {messages &&
           messages.map(msg => {
             console.log(msg);
             return <ChatMessage key={msg.id} message={msg} auth={auth} />;
           })}
-      </div>
+      </main>
       <form onSubmit={handleSendMessage}>
         <input
           type="text"
