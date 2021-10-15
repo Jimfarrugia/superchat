@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   collection,
   query,
@@ -16,6 +16,7 @@ const Chatroom = ({ auth, firestore }) => {
   const messagesQuery = query(messagesRef, orderBy("createdAt"), limit(25));
   const [messages, setMessages] = useState([]);
   const [formValue, setFormValue] = useState("");
+  const bottom = useRef();
 
   useEffect(() => {
     const unsubscribe = onSnapshot(messagesQuery, querySnapshot => {
@@ -40,6 +41,7 @@ const Chatroom = ({ auth, firestore }) => {
     });
 
     setFormValue("");
+    bottom.current.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -53,6 +55,7 @@ const Chatroom = ({ auth, firestore }) => {
             console.log(msg);
             return <ChatMessage key={msg.id} message={msg} auth={auth} />;
           })}
+        <div ref={bottom} />
       </main>
       <form onSubmit={handleSendMessage}>
         <input
