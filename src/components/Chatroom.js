@@ -15,15 +15,15 @@ const Chatroom = ({ auth, firestore }) => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(
-      messagesQuery,
-      querySnapshot => {
-        setMessages(querySnapshot.docs.map(doc => doc.data()));
-      },
-      error => console.log(error)
-    );
-    return unsubscribe;
-  });
+    const unsubscribe = onSnapshot(messagesQuery, querySnapshot => {
+      setMessages(
+        querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+      );
+    });
+    return () => unsubscribe();
+  }, []); // eslint-disable-line
+
+  useEffect(() => console.log(messages), [messages]); //* debugging
 
   return (
     <>
@@ -32,7 +32,10 @@ const Chatroom = ({ auth, firestore }) => {
       </header>
       <div className="messages">
         {messages &&
-          messages.map(msg => <ChatMessage key={msg.uid} message={msg} />)}
+          messages.map(msg => {
+            console.log(msg);
+            return <ChatMessage key={msg.id} message={msg} />;
+          })}
       </div>
     </>
   );
