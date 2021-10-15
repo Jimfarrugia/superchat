@@ -1,7 +1,6 @@
 const ChatMessage = ({ message, auth }) => {
-  const { text, uid } = message;
+  const { text, uid, photoURL } = message;
   const { currentUser } = auth;
-  const { photoURL } = currentUser;
 
   const messageClass = uid === currentUser.uid ? "sent" : "received";
 
