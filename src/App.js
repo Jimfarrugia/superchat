@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import { firebaseConfig } from "./config";
+import Chatroom from "./Chatroom";
+import SignIn from "./SignIn";
 
-function App() {
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp);
+const firestore = getFirestore(firebaseApp);
+
+const App = () => {
+  const [user] = useAuthState(auth);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <header className="App-header"></header>
+      {/* <section>{user ? <Chatroom /> : <SignIn auth={auth} />}</section> */}
     </div>
   );
-}
+};
 
 export default App;
