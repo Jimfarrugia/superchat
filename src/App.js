@@ -1,15 +1,9 @@
 import { useState, useEffect } from "react";
-import { initializeApp } from "firebase/app";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { firebaseConfig } from "./config";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, firestore } from "./firebase";
 import Chatroom from "./components/Chatroom";
 import SignIn from "./components/SignIn";
 import "./App.css";
-
-const firebaseApp = initializeApp(firebaseConfig);
-const auth = getAuth(firebaseApp);
-const firestore = getFirestore(firebaseApp);
 
 const App = () => {
   const [user, setUser] = useState(null);
