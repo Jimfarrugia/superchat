@@ -32,3 +32,6 @@ yarn-error.log*
 /functions
 .firebaserc
 firebase.json
+
+# Netlify
+.netlify
